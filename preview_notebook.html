@@ -135,11 +135,12 @@ $(document).ready(function () {
 <li>the notebook can be exported out to numerous formats including: Word docx, pdf, HTML, tex, …</li>
 </ul>
 <hr />
-<p>Here is a list of required packages to load:</p>
+<p>Here is a list of required packages and options to load:</p>
 <pre class="r"><code>knitr::opts_chunk$set(dpi = 150)
 require(knitr)
 require(knitcitations)  # used to create citations and bibliography
 require(printr)
+require(pander)
 options(&quot;citation_format&quot; = &quot;pandoc&quot;)</code></pre>
 <hr />
 <div id="friday-18th-november-2016" class="section level1">
@@ -254,16 +255,16 @@ kable(summary(out)$coef, digits=2, caption = 'An example table produced by knitr
 <tbody>
 <tr class="odd">
 <td>(Intercept)</td>
-<td align="right">-0.11</td>
+<td align="right">-0.03</td>
 <td align="right">0.09</td>
-<td align="right">-1.18</td>
-<td align="right">0.24</td>
+<td align="right">-0.32</td>
+<td align="right">0.75</td>
 </tr>
 <tr class="even">
 <td>x</td>
-<td align="right">1.98</td>
-<td align="right">0.10</td>
-<td align="right">20.23</td>
+<td align="right">2.02</td>
+<td align="right">0.09</td>
+<td align="right">23.26</td>
 <td align="right">0.00</td>
 </tr>
 </tbody>

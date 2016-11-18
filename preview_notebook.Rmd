@@ -26,12 +26,13 @@ There are many benefits to using an electronic 'lab book' in the R/RStudio ecosy
 
 -----  
   
-Here is a list of required packages to load:
+Here is a list of required packages and options to load:
 ```{r packages, message=F}
 knitr::opts_chunk$set(dpi = 150)
 require(knitr)
 require(knitcitations)  # used to create citations and bibliography
 require(printr)
+require(pander)
 options("citation_format" = "pandoc")
 ```
 
@@ -136,7 +137,6 @@ The *printr* package aims to make the standard output from `R` a little nicer to
 ```{r}
 head(mtcars)
 ```
-
 
 ### Citation is straight forward
 Using the `knitcitations` package makes referencing easy! Just use the *citep* function and provide either a DOI or html link to the citation and R will take care of the rest, including building the reference list at the end of the document.
