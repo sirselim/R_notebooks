@@ -3,8 +3,9 @@ title: "My Electronic R Lab Notebook for WILS 2016"
 author: "Miles Benton"
 date: 'Last updated: `r format(Sys.time(), "%d %B, %Y")`'
 output:
-  pdf_document: default
+  html_document: default
   html_notebook: default
+  pdf_document: default
   word_document: default
 csl: plos_mod.csl
 bibliography: references.bib
@@ -30,6 +31,7 @@ Here is a list of required packages to load:
 knitr::opts_chunk$set(dpi = 150)
 require(knitr)
 require(knitcitations)  # used to create citations and bibliography
+require(printr)
 options("citation_format" = "pandoc")
 ```
 
@@ -106,14 +108,35 @@ abline(lm(cars$dist ~ cars$speed))
 Figure \ref{fig:mtcars} shows the same data we previously plotted, this time with a fitted line from our linear regression.
 
 ### Tables are also easy
-We can use the *kable* function from *knitr*:
+We can use the *kable* function from *knitr* (note that tables can also be captioned):
 ```{r kable}
 n <- 100
 x <- rnorm(n)
 y <- 2*x + rnorm(n)
 out <- lm(y ~ x)
-kable(summary(out)$coef, digits=2)
+kable(summary(out)$coef, digits=2, caption = 'An example table produced by knitr kable().')
 ```
+
+There is a new package called *printr* which is a companion app to *knitr*, aiming to make tables look nicer.
+
+The package is currently not on CRAN, so you will need to install it as below:
+```{r, eval=FALSE}
+# install printr
+install.packages(
+  'printr',
+  type = 'source',
+  repos = c('http://yihui.name/xran', 'http://cran.rstudio.com')
+)
+# load the package
+library('printr')
+```
+
+The *printr* package aims to make the standard output from `R` a little nicer to look at (and easier to read), have a look at the following:
+
+```{r}
+head(mtcars)
+```
+
 
 ### Citation is straight forward
 Using the `knitcitations` package makes referencing easy! Just use the *citep* function and provide either a DOI or html link to the citation and R will take care of the rest, including building the reference list at the end of the document.
