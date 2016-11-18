@@ -1,0 +1,228 @@
+---
+title: "My Electronic R Lab Notebook for WILS 2016"
+author: "Miles Benton"
+date: 'Last updated: `r format(Sys.time(), "%d %B, %Y")`'
+output:
+  pdf_document: default
+  html_notebook: default
+  word_document: default
+csl: plos_mod.csl
+bibliography: references.bib
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+This document is an example template which demonstrates the utility and power of R/RStudio to provide useful tools for not only data exploration and analysis but also electronic reporting and disemination. The main use case of this document is to show the specific use of R Notebooks as an excellent alternative to a hand written lab book.
+
+There are many benefits to using an electronic 'lab book' in the R/RStudio ecosystem:
+
+  - while students are working on there 'experiements' they are also writing notes and recording exactly what they are doing
+  - code and data is explorable and evaluated within the same document as text
+  - inline citation and bibliography management
+  - inline citation of figure and tables
+  - the notebook is easily synced to version control (backup systems) such as GitHub, so there is no chance of ever losing your work
+  - the notebook can be exported out to numerous formats including: Word docx, pdf, HTML, tex, ...
+
+-----  
+  
+Here is a list of required packages to load:
+```{r packages, message=F}
+knitr::opts_chunk$set(dpi = 150)
+require(knitr)
+require(knitcitations)  # used to create citations and bibliography
+options("citation_format" = "pandoc")
+```
+
+-----  
+  
+# Friday 18^th^ November 2016
+
+
+What follows is a template for the basic structure laid out in the WILS Lab Book pdf manual.
+
+### Title
+**Using R Notebooks for electronic lab book documentation in Bioinformatics** (and generally any other field you want!)
+
+### Aims
+Explore the use of the R Notebook environment for creating a reproducible and dynamic reporting system for use in the field of Bioinformatics.
+
+### Introduction
+It has been well established that the tools contained within the RStudio software have made creating and diseminating electronic reports much easier. By using RMarkdown users are able to generate notes/written content in the same ernvironment as working with their data and producing statistics and results. 
+
+### Materials
+For this demonstration we need to download and install several pieces of software. 
+
+First would be `R`, which can be downloaded here: https://www.r-project.org/  
+
+Next we'll want to grab `RStudio`, here is the link: https://www.rstudio.com/products/rstudio/download/preview/
+
+If you want to read more about RMarkdown: http://rmarkdown.rstudio.com/
+
+More information on R Notebooks: http://rmarkdown.rstudio.com/r_notebooks.html
+
+### Methods
+We will be exploring a range of different methods and functions from both R `r citep(citation())` and RStudio, and see how they are implemented in R Notebooks and how that can be leveraged to help us create an electronic record, or lab book.
+
+### Results
+Here are some of the many features that are available when using R Notebooks. 
+
+#### Display code
+We are able to write and evaluate code using *chunks*, a concept implemented in RMarkdown - allowing us to both write text and code within the same document.
+
+To genetate a new chunk press *ctrl+alt+i*, within the chunk you can write and evaluate R code:
+```{r}
+1+1
+```
+
+
+
+#### Evaluate statistics/models and display in text
+
+```{r}
+lm(cars)
+```
+
+```{r}
+summary(lm(cars))
+```
+
+#### Can even include plots  
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r mtcars, fig.cap='\\label{fig:testplot}Simple plotting using mtcars data.', tidy=TRUE}
+plot(cars, pch = 16, col = 'cadetblue')
+```
+
+A really nifty feature is that plotted figures get asigned a figure number which is able to be referenced in text (see Figure \ref{fig:testplot}).
+
+We can create the same plot as before, but this time fit the regression model that we previously generated. We'll plot the best fit line using the *abline* function.
+
+```{r mtcars.reg, fig.cap='\\label{fig:mtcars}Plotting regression line using mtcars data.', tidy=TRUE}
+plot(cars, pch = 16, col = 'cadetblue')
+abline(lm(cars$dist ~ cars$speed))
+```
+
+Figure \ref{fig:mtcars} shows the same data we previously plotted, this time with a fitted line from our linear regression.
+
+### Tables are also easy
+We can use the *kable* function from *knitr*:
+```{r kable}
+n <- 100
+x <- rnorm(n)
+y <- 2*x + rnorm(n)
+out <- lm(y ~ x)
+kable(summary(out)$coef, digits=2)
+```
+
+### Citation is straight forward
+Using the `knitcitations` package makes referencing easy! Just use the *citep* function and provide either a DOI or html link to the citation and R will take care of the rest, including building the reference list at the end of the document.
+
+Example: *glmnet* is a machine learning package with implements an Elastic-net framework. `r citep("http://www.jstatsoft.org/v33/i01/")`
+
+The embedded RMarkdown code for the above citation looks like this:
+```{r, engine='R', eval=F}
+`r citep("http://www.jstatsoft.org/v33/i01/"`)
+```
+
+
+### Output to many popular formats
+RStudio uses the power of the `knitr` `r citep(citation('knitr')[3])` package and `pandoc` to allow the exporting of your document to several flexible and popular formats.
+
+#### HTML
+By selecting *knit to HTML* an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+#### Word (.docx)
+By selecting *knit to Word* your notebook will be exported to *.docx* format, which will be able to be read by Microsoft Word and other office packages (i.e. Libre Office).
+
+#### pdf
+By selecting *knit to Word* your notebook will be exported to *.pdf*, the universal format.
+
+### Discussion
+For any heavily based computational or 'informatics program we should be moving towards embracing technology not only in the tools we use for research, but also those for methods of recording and diseminating our work. As researchers in this field are almost exclusively working on their computers it makes sense to have an electronic record rather thantraditional hand written lab books.
+
+This set up is able to run on any OS platform (Linux, MacOS, Windows, etc).
+
+### Conclusion
+The framework provided by R, RStudio and RMarkdown come together in the form of R Notebooks and make for an excellent form of electronic recording for daily activities/experiments, providing an ideal solution for Bioinformatics lab books.  
+
+-----
+
+# Monday 21^st^ November 2016
+Can easily create bullet lists:
+
+  - induction at 10.00am
+  - supervisor meeting at 12.30pm
+  - Introduction to R/RStudio workshop at 2.00pm
+
+Also numbered lists:
+
+  1. first load the data
+  2. explore data and QC
+  3. generate summary statistics
+  
+----  
+  
+# Tuesday 22^nd^ November 2016
+
+1. Explore the lab and get an idea where the data is coming from.
+
+2. Look into chi squared tests in R:
+
+```{r}
+## From Agresti(2007) p.39
+M <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+dimnames(M) <- list(gender = c("F", "M"),
+                    party = c("Democrat","Independent", "Republican"))
+(Xsq <- chisq.test(M))  # Prints test summary
+Xsq$observed   # observed counts (same as M)
+Xsq$expected   # expected counts under the null
+Xsq$residuals  # Pearson residuals
+Xsq$stdres     # standardized residuals
+```
+
+----  
+  
+# Wednesday 23^rd^ November 2016
+
+Use R to do simple students t-tests:
+```{r}
+## Classical example: Student's sleep data
+plot(extra ~ group, data = sleep)
+## Traditional interface
+with(sleep, t.test(extra[group == 1], extra[group == 2]))
+## Formula interface
+t.test(extra ~ group, data = sleep)
+```
+
+
+----  
+  
+# Thursday 24^th^ November 2016
+
+Learn how to make box plots in R.
+
+```{r}
+boxplot(mtcars$mpg ~ mtcars$vs, col = c('cadetblue', 'darkred'))
+```
+
+Too easy!
+
+----  
+  
+# Friday 25^th^ November 2016
+
+Plan for the day:
+
+  - explore integrating lab notebook with a version control service (GitHub) 
+  - look into examples of using the *glmnet* package
+  - integrate all data sets and learn how to filter data in R
+  - sit back and realise how awesome R is!! :)
+
+----
+
+# References
+
+```{r ref.library, echo=FALSE, message=FALSE}
+write.bibtex(file="references.bib")
+```
