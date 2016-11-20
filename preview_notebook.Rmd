@@ -3,9 +3,9 @@ title: "My Electronic R Lab Notebook for WILS 2016"
 author: "Miles Benton"
 date: 'Last updated: `r format(Sys.time(), "%d %B, %Y")`'
 output:
-  html_document: default
-  html_notebook: default
   pdf_document: default
+  html_notebook: default
+  html_document: default
   word_document: default
 csl: plos_mod.csl
 bibliography: references.bib
@@ -184,6 +184,22 @@ Also numbered lists:
   2. explore data and QC
   3. generate summary statistics
   
+You can use RMarkdown to include external figures in your notebooks (figures not created in your R session), heres how.  
+
+Images on the web:
+
+```
+![R_image](https://www.r-project.org/Rlogo.png)
+```
+![R_image](https://www.r-project.org/Rlogo.png)
+
+Or images from local files in the same directory
+
+```
+![R_icon](images/R_icon.png)
+```
+![R_icon](images/R_icon.png)
+
 ----  
   
 # Tuesday 22^nd^ November 2016
